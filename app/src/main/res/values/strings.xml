@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MyNotesApp</string>
+    <string name="txt_no_account_signup">Don\'t have an account? <font color="#2196F3">Register Now</font></string>
+    <string name="txt_already_account_signIn">Already have an account? <font color="#2196F3">Sign In</font></string>
+</resources>
