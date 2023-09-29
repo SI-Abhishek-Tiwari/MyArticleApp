@@ -15,7 +15,8 @@ import retrofit2.Response
 import java.lang.StringBuilder
 import javax.inject.Inject
 
-class UserRepository @Inject constructor(private val userApi: UserApi) {
+class UserRepository @Inject constructor(private val userApi: UserApi ) {
+//    private lateinit var  preferenceManager: PreferenceManager
 
     private val _userResponseLiveData = MutableLiveData<NetworkResult<UserResponse>>()
 
@@ -46,6 +47,8 @@ class UserRepository @Inject constructor(private val userApi: UserApi) {
 
     private fun handleResponse(response : Response<UserResponse>){
         if(response.isSuccessful && response.body() != null){
+            val user = response.body()!!.user
+//            preferenceManager.saveUsername(user.username)
             _userResponseLiveData.postValue(NetworkResult.Success(response.body()!!))
         }else if (response.errorBody() != null) {
             val gson = Gson()

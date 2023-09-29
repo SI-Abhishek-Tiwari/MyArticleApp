@@ -34,6 +34,8 @@ class DemoAdapter(private val onArticleClicked:(ArticleDto) -> Unit):
         }
     }
 
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemArticelBinding.inflate(LayoutInflater.from(parent.context),parent,false)
 //        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_articel,parent,false)

@@ -69,6 +69,12 @@ class MainFragment : Fragment() {
                     true
                 }
 
+                R.id.action_view_profile -> {
+
+                    findNavController().navigate(R.id.action_mainFragment_to_profileFragment)
+                    true
+                }
+
                 else -> {
                      false
                 }
@@ -91,6 +97,12 @@ class MainFragment : Fragment() {
             }
         })
     }
+
+//    private fun navigateToArticle(articleDto: ArticleDto){
+//        val bundle = Bundle()
+//        bundle.putString("profileArticle",Gson().toJson(articleDto))
+//        findNavController().navigate(R.id.action_mainFragment_to_profileFragment,bundle)
+//    }
 
     private fun onArticleClick(articleDto: ArticleDto){
         val bundle = Bundle()

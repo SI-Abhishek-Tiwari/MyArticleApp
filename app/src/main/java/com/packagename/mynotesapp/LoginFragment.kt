@@ -15,6 +15,7 @@ import com.packagename.mynotesapp.models.UserSignUpRequest
 import com.packagename.mynotesapp.models.UserSignUpdet
 import com.packagename.mynotesapp.utilis.NetworkResult
 import com.packagename.mynotesapp.utilis.TokenManager
+import com.packagename.mynotesapp.utilis.Username
 import com.packagename.mynotesapp.viewmodels.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -28,6 +29,9 @@ class LoginFragment : Fragment() {
 
     @Inject
     lateinit var tokenManager: TokenManager
+
+    @Inject
+    lateinit var username: Username
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -81,6 +85,7 @@ class LoginFragment : Fragment() {
                 is NetworkResult.Loading -> TODO()
                 is NetworkResult.Success -> {
                     tokenManager.saveToken(it?.data?.user!!.token)
+                    username.saveUsername(it.data.user.username)
                     findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
                 }
             }

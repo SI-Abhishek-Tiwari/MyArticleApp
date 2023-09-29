@@ -3,8 +3,7 @@ package com.packagename.mynotesapp.models
 
 import com.google.gson.annotations.SerializedName
 
-data class UserResponse(
-    @SerializedName("user")
-    val user: User,
-
+data class ProfileResponse(
+    @SerializedName("profile")
+    val profile: Profile
 )

@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_mainFragment_to_articleDetailsFragment"
             app:destination="@id/articleDetailsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -42,4 +45,12 @@
         android:id="@+id/articleDetailsFragment"
         android:name="com.packagename.mynotesapp.ArticleDetailsFragment"
         android:label="ArticleDetailsFragment" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.packagename.mynotesapp.ProfileFragment"
+        android:label="ProfileFragment" >
+        <action
+            android:id="@+id/action_profileFragment_to_articleDetailsFragment"
+            app:destination="@id/articleDetailsFragment" />
+    </fragment>
 </navigation>

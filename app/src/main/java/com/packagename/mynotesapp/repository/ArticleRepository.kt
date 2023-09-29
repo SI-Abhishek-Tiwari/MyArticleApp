@@ -8,6 +8,7 @@ import com.packagename.mynotesapp.api.ArticleApi
 
 import com.packagename.mynotesapp.models.CreateArticleRequest
 import com.packagename.mynotesapp.models.CreateArticleResponse
+import com.packagename.mynotesapp.models.ProfileResponse
 import com.packagename.mynotesapp.models.PublishArticleResponse
 import com.packagename.mynotesapp.utilis.NetworkResult
 import retrofit2.Response
@@ -24,6 +25,18 @@ class ArticleRepository @Inject constructor(private val articleApi: ArticleApi) 
     val statusArticleLivedata : LiveData<NetworkResult<CreateArticleResponse>>
         get() = _statusArticleLivedata
 
+    private val _articleByUsernameLivedata = MutableLiveData<NetworkResult<CreateArticleResponse>>()
+    val articleByUsernameLivedata : LiveData<NetworkResult<CreateArticleResponse>>
+        get() = _articleByUsernameLivedata
+
+   private val _profileLiveData = MutableLiveData<NetworkResult<ProfileResponse>>()
+        val profileLiveData : LiveData<NetworkResult<ProfileResponse>>
+            get() = _profileLiveData
+
+    private val _favouriteArticle = MutableLiveData<NetworkResult<CreateArticleResponse>>()
+        val favouriteArticle : LiveData<NetworkResult<CreateArticleResponse>>
+            get() = _favouriteArticle
+
    suspend fun createArticle(createArticleRequest: CreateArticleRequest){
        val response = articleApi.createArticle(createArticleRequest)
        Log.e("article",  response.body().toString())
@@ -39,7 +52,50 @@ class ArticleRepository @Inject constructor(private val articleApi: ArticleApi) 
         }else{
             _articleResponseLivedata.postValue(NetworkResult.Error("Something went wrong"))
         }
+    }
 
+    suspend fun getArticleUsername(username: String) {
+        val response = articleApi.getArticleByUsername(username)
+        if (response.isSuccessful && response.body() != null){
+            Log.d("article by username", response.body().toString())
+            _articleByUsernameLivedata.postValue(NetworkResult.Success(response.body()!!))
+        }else{
+            _articleByUsernameLivedata.postValue(NetworkResult.Error("Something went wrong"))
+        }
+    }
+
+    suspend fun getFavouriteArticleByUsername(username: String){
+        val response = articleApi.getFavouriteArticleByUsername(username)
+        if (response.isSuccessful && response.body() != null){
+            Log.d("favourite Article", response.body()!!.articles.size.toString())
+            _favouriteArticle.postValue(NetworkResult.Success(response.body()!!))
+        }else{
+            _favouriteArticle.postValue((NetworkResult.Error("Something went wrong")))
+        }
+    }
+
+    suspend fun getProfile(username: String) {
+        val response = articleApi.getProfile(username)
+        if(response.isSuccessful && response.body() != null){
+            _profileLiveData.postValue(NetworkResult.Success(response.body()!!))
+        }
+        else{
+            _profileLiveData.postValue(NetworkResult.Error("Something went wrong"))
+        }
+    }
+
+    suspend fun addFavourite(slug : String){
+        val response = articleApi.addFavourite(slug)
+        if (response.isSuccessful && response.body() != null){
+            Log.d("add favourite", response.body()?.articles?.size.toString())
+        }
+    }
+
+    suspend fun deleteFromFavourite(slug: String){
+        val response = articleApi.deleteFromFavourite(slug)
+        if (response.isSuccessful && response.body() != null){
+            Log.d("delete favourite", response.body()?.articles?.size.toString())
+        }
     }
 
     private  fun handleResponse(response: Response<CreateArticleResponse>){

@@ -3,9 +3,9 @@ package com.packagename.mynotesapp.models
 
 import com.google.gson.annotations.SerializedName
 
-data class Author(
+data class Profile(
     @SerializedName("bio")
-    val bio: String,
+    val bio: Any,
     @SerializedName("following")
     val following: Boolean,
     @SerializedName("image")
